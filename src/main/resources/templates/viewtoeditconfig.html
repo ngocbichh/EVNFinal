@@ -47,36 +47,36 @@
 
             <div class="form-group">
                 <label for="subject">Nhóm đối tượng: </label>
-                <input class="form-control" type="text" th:field="${config.subject}" />
+                <input class="form-control" type="text" th:field="${config.subject}" readonly/>
             </div>
 
             <div class="form-group">
                 <label for="price">Giá tiền: </label>
-                <input type="text" th:field="${config.price}" />
+                <input class="form-control" type="text" th:field="${config.price}" maxlength="5" required/>
             </div>
 
             <div class="form-group">
                 <label for="creator">Người tạo: </label>
-                <input type="text" th:field="${config.creator}" />
+                <input class="form-control" type="text" th:field="${config.creator}" readonly/>
             </div>
 
             <div class="form-group">
                 <label for="dateCreate">Ngày tạo: </label>
-                <input type="text" th:field="${config.dateCreate}" />
+                <input class="form-control" type="text" th:field="${config.dateCreate}" readonly/>
             </div>
 
             <div class="form-group">
                 <label for="editor">Người sửa: </label>
-                <input type="text" th:field="${config.editor}" th:value ="${user.fullName}" />
+                <input class="form-control" type="text" th:field="${config.editor}" th:value ="${user.fullName}" required/>
             </div>
 
             <div class="form-group">
                 <label for="dateEdit">Ngày sửa: </label>
-                <input type="text" th:field="${config.dateEdit}" />
+                <input class="form-control" placeholder="01-01-2021" type="text" th:field="${config.dateEdit}" required/>
             </div>
             
-            <button>Hủy</button>
-            <button type="submit" value="Edit">Sửa</button>
+            <button class="btn btn-primary">Hủy</button>
+            <button type="submit" class="btn btn-success" value="Edit">Sửa</button>
     	</form>
     </div>
 </body>

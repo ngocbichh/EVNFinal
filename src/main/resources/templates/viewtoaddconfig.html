@@ -42,32 +42,33 @@
 <div class="container">
 		<h2>Cấu hình</h2>
 		<p>Thêm cấu hình</p>
-		<form method="POST" th:action="@{/user/config/}+${user.idUser}+@{/addConfig/add}" th:object="${config}">
+		<form method="POST" onsubmit="return validateForm()" th:action="@{/user/config/}+${user.idUser}+@{/addConfig/add}" th:object="${config}">
 
             <div class="form-group">
                 <label for="subject">Nhóm đối tượng: </label>
-                <input class="form-control" id ="subj" type="text" th:field="${config.subject}" />
+                <input class="form-control" id ="subj" type="text" th:field="${config.subject}" required/>
+				<span id = "errorSub"></span>
             </div>
 
             <div class="form-group">
                 <label for="price">Giá tiền: </label>
-                <input type="text" id="prc" th:field="${config.price}" />
+                <input class="form-control" placeholder="1.234" type="number" id="prc" th:field="${config.price}" maxlength="5" required/>
             </div>
 
             <div class="form-group">
                 <label for="creator">Người tạo: </label>
-                <input type="text" id="crt" value = "abc" th:field="${config.creator}"/>
+                <input class="form-control" type="text" id="crt" value = "abc" th:field="${config.creator}" required/>
             </div>
 
             <div class="form-group">
                 <label for="dateCreate">Ngày tạo: </label>
-                <input  type="text" id ="dateCrt" th:field="${config.dateCreate}"/>
+                <input class="form-control"  type="text" placeholder="01-01-2021" id ="dateCrt" th:field="${config.dateCreate}" required/>
             </div>
-			
-            <button>Hủy</button>
-            <button type="submit" value="Add">Xóa</button>
-		</form>
 
+            <button class="btn btn-primary">Hủy</button>
+            <button type="submit" class="btn btn-success" value="Add">Thêm mới</button>
+		</form>
+		<script src="./main.js"></script>
 </body>
 
 </html>

@@ -45,7 +45,7 @@
 		<p>Công thức tính tiền điện cho hộ dân</p>
 		<br/>
 		<form method="get" th:action="@{/user/config/}+${user.idUser}+@{/addConfig/view}">
-			<input type="submit" value="Thêm cấu hình" class="btn btn-primary btn-sm">
+			<input type="submit" value="Thêm cấu hình" class="btn btn-success btn-sm">
 		</form>
 		
 			<table class="table table-striped">
@@ -65,7 +65,7 @@
 						<td><a th:href="@{/user/config/}+${user.idUser}+@{/editConfig/view/}+${config.idConfiguration}"
 							class="btn btn-primary btn-sm">Sửa</a></td>
 						<td><a th:href="@{/user/config/}+${user.idUser}+@{/delConfig/view/}+${config.idConfiguration}"
-							class="btn btn-primary btn-sm">Xóa</a></td>
+							class="btn btn-danger btn-sm">Xóa</a></td>
 					</tr>
 				</tbody>
 			</table>
