@@ -1,66 +1,61 @@
 package com.evn.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ExtendWith(MockitoExtension.class)
 class UserTest {
 
-    private static final String ID_USER = "ID_USER";
-    private static final String FULL_NAME = "FULL_NAME";
-    private static final String USERNAME = "USERNAME";
-    private static final String PASSWORD = "PASSWORD";
-    private static final String PHONE_NUMBER = "PHONE_NUMBER";
-    @InjectMocks
-    private User underTest;
+    private User userUnderTest;
 
-    @Test
-    void getIdUser() {
+    @BeforeEach
+    void setUp() {
+        userUnderTest = new User();
     }
 
     @Test
-    void getFullName() {
+    void testEquals() {
+        // Setup
+
+        // Run the test
+        final boolean result = userUnderTest.equals("o");
+
+        // Verify the results
+        assertTrue(result);
     }
 
     @Test
-    void getUsername() {
-    }
+    void testHashCode() {
+        // Setup
 
-    @Test
-    void getPassword() {
-    }
+        // Run the test
+        final int result = userUnderTest.hashCode();
 
-    @Test
-    void getPhoneNumber() {
-    }
-
-    @Test
-    void setIdUser() {
-    }
-
-    @Test
-    void setFullName() {
-    }
-
-    @Test
-    void setUsername() {
-    }
-
-    @Test
-    void setPassword() {
-    }
-
-    @Test
-    void setPhoneNumber() {
+        // Verify the results
+        assertEquals(0, result);
     }
 
     @Test
     void testToString() {
+        // Setup
+
+        // Run the test
+        final String result = userUnderTest.toString();
+
+        // Verify the results
+        assertEquals("result", result);
+    }
+
+    @Test
+    void testCanEqual() {
+        // Setup
+
+        // Run the test
+        final boolean result = userUnderTest.canEqual("other");
+
+        // Verify the results
+        assertTrue(result);
     }
 }

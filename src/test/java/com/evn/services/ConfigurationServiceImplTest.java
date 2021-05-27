@@ -4,17 +4,17 @@ import com.evn.model.Configuration;
 import com.evn.repository.ConfigurationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
-@ExtendWith(MockitoExtension.class)
 class ConfigurationServiceImplTest {
 
     @Mock
@@ -24,6 +24,7 @@ class ConfigurationServiceImplTest {
 
     @BeforeEach
     void setUp() {
+        initMocks(this);
         configurationServiceImplUnderTest = new ConfigurationServiceImpl(mockConfigurationRepository);
     }
 
@@ -31,6 +32,7 @@ class ConfigurationServiceImplTest {
     void testGetAll() {
         // Setup
         final Configuration configuration = new Configuration();
+        configuration.setIdConfiguration(0);
         configuration.setSubject("subject");
         configuration.setCreator("creator");
         configuration.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
@@ -41,7 +43,7 @@ class ConfigurationServiceImplTest {
 
         // Configure ConfigurationRepository.findAll(...).
         final Configuration configuration1 = new Configuration();
-        
+        configuration1.setIdConfiguration(0);
         configuration1.setSubject("subject");
         configuration1.setCreator("creator");
         configuration1.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
@@ -55,14 +57,14 @@ class ConfigurationServiceImplTest {
         final List<Configuration> result = configurationServiceImplUnderTest.getAll();
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
     void testGetAll_ConfigurationRepositoryReturnsNoItems() {
         // Setup
         final Configuration configuration = new Configuration();
-        
+        configuration.setIdConfiguration(0);
         configuration.setSubject("subject");
         configuration.setCreator("creator");
         configuration.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
@@ -76,14 +78,15 @@ class ConfigurationServiceImplTest {
         final List<Configuration> result = configurationServiceImplUnderTest.getAll();
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
+    @Rollback
     void testSave() {
         // Setup
         final Configuration configuration = new Configuration();
-        
+        configuration.setIdConfiguration(0);
         configuration.setSubject("subject");
         configuration.setCreator("creator");
         configuration.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
@@ -92,7 +95,7 @@ class ConfigurationServiceImplTest {
         configuration.setDateEdit(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
 
         final Configuration expectedResult = new Configuration();
-        
+        expectedResult.setIdConfiguration(0);
         expectedResult.setSubject("subject");
         expectedResult.setCreator("creator");
         expectedResult.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
@@ -102,27 +105,27 @@ class ConfigurationServiceImplTest {
 
         // Configure ConfigurationRepository.save(...).
         final Configuration configuration1 = new Configuration();
-        
+        configuration1.setIdConfiguration(0);
         configuration1.setSubject("subject");
         configuration1.setCreator("creator");
         configuration1.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
         configuration1.setPrice(0.0f);
         configuration1.setEditor("editor");
         configuration1.setDateEdit(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
-        when(mockConfigurationRepository.save(new Configuration())).thenReturn(configuration1);
+//        when(mockConfigurationRepository.save(new Configuration())).thenReturn(configuration1);
 
         // Run the test
         final Configuration result = configurationServiceImplUnderTest.save(configuration);
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
     void testGetById() {
         // Setup
         final Configuration configuration = new Configuration();
-       
+        configuration.setIdConfiguration(0);
         configuration.setSubject("subject");
         configuration.setCreator("creator");
         configuration.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
@@ -133,6 +136,7 @@ class ConfigurationServiceImplTest {
 
         // Configure ConfigurationRepository.findById(...).
         final Configuration configuration2 = new Configuration();
+        configuration2.setIdConfiguration(0);
         configuration2.setSubject("subject");
         configuration2.setCreator("creator");
         configuration2.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
@@ -140,19 +144,20 @@ class ConfigurationServiceImplTest {
         configuration2.setEditor("editor");
         configuration2.setDateEdit(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
         final Optional<Configuration> configuration1 = Optional.of(configuration2);
-//        when(mockConfigurationRepository.findById("id")).thenReturn(configuration1);
+        when(mockConfigurationRepository.findById(0)).thenReturn(configuration1);
 
         // Run the test
-        final Optional<Configuration> result = configurationServiceImplUnderTest.getById("id");
+        final Optional<Configuration> result = configurationServiceImplUnderTest.getById("0");
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
     void testGetById_ConfigurationRepositoryReturnsAbsent() {
         // Setup
         final Configuration configuration = new Configuration();
+        configuration.setIdConfiguration(0);
         configuration.setSubject("subject");
         configuration.setCreator("creator");
         configuration.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
@@ -160,29 +165,32 @@ class ConfigurationServiceImplTest {
         configuration.setEditor("editor");
         configuration.setDateEdit(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
         final Optional<Configuration> expectedResult = Optional.of(configuration);
-//        when(mockConfigurationRepository.findById("id")).thenReturn(Optional.empty());
+        when(mockConfigurationRepository.findById(0)).thenReturn(Optional.empty());
 
         // Run the test
-        final Optional<Configuration> result = configurationServiceImplUnderTest.getById("id");
+        final Optional<Configuration> result = configurationServiceImplUnderTest.getById("0");
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
+    @Rollback
     void testDelete() {
         // Setup
         final Configuration configuration = new Configuration();
+        configuration.setIdConfiguration(0);
         configuration.setSubject("subject");
         configuration.setCreator("creator");
         configuration.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
         configuration.setPrice(0.0f);
         configuration.setEditor("editor");
         configuration.setDateEdit(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
-        final Optional<Configuration> expectedResult = Optional.of(configuration);
+        final Optional<Configuration> expectedResult = null;
 
         // Configure ConfigurationRepository.findById(...).
         final Configuration configuration2 = new Configuration();
+        configuration2.setIdConfiguration(0);
         configuration2.setSubject("subject");
         configuration2.setCreator("creator");
         configuration2.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
@@ -190,20 +198,22 @@ class ConfigurationServiceImplTest {
         configuration2.setEditor("editor");
         configuration2.setDateEdit(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
         final Optional<Configuration> configuration1 = Optional.of(configuration2);
-//        when(mockConfigurationRepository.findById("id")).thenReturn(configuration1);
+        when(mockConfigurationRepository.findById(0)).thenReturn(configuration1);
 
         // Run the test
-        final Optional<Configuration> result = configurationServiceImplUnderTest.delete("id");
+        final Optional<Configuration> result = configurationServiceImplUnderTest.delete("0");
 
         // Verify the results
         assertThat(result).isEqualTo(expectedResult);
-//        verify(mockConfigurationRepository).deleteById("id");
+        verify(mockConfigurationRepository).deleteById(0);
     }
 
     @Test
+    @Rollback
     void testDelete_ConfigurationRepositoryFindByIdReturnsAbsent() {
         // Setup
         final Configuration configuration = new Configuration();
+        configuration.setIdConfiguration(0);
         configuration.setSubject("subject");
         configuration.setCreator("creator");
         configuration.setDateCreate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
@@ -211,13 +221,13 @@ class ConfigurationServiceImplTest {
         configuration.setEditor("editor");
         configuration.setDateEdit(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
         final Optional<Configuration> expectedResult = Optional.of(configuration);
-//        when(mockConfigurationRepository.findById("id")).thenReturn(Optional.empty());
+        when(mockConfigurationRepository.findById(0)).thenReturn(Optional.empty());
 
         // Run the test
-        final Optional<Configuration> result = configurationServiceImplUnderTest.delete("id");
+        final Optional<Configuration> result = configurationServiceImplUnderTest.delete("0");
 
         // Verify the results
         assertThat(result).isEqualTo(expectedResult);
-//        verify(mockConfigurationRepository).deleteById("id");
+        verify(mockConfigurationRepository).deleteById(0);
     }
 }

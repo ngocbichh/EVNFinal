@@ -4,17 +4,15 @@ import com.evn.model.Invoice;
 import com.evn.repository.InvoiceRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
-@ExtendWith(MockitoExtension.class)
 class InvoiceServiceImplTest {
 
     @Mock
@@ -24,6 +22,7 @@ class InvoiceServiceImplTest {
 
     @BeforeEach
     void setUp() {
+        initMocks(this);
         invoiceServiceImplUnderTest = new InvoiceServiceImpl(mockInvoiceRepository);
     }
 
@@ -62,7 +61,7 @@ class InvoiceServiceImplTest {
         final List<Invoice> result = invoiceServiceImplUnderTest.getByStatusAndMonthAndYear("status", 1, 2020);
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -86,7 +85,7 @@ class InvoiceServiceImplTest {
         final List<Invoice> result = invoiceServiceImplUnderTest.getByStatusAndMonthAndYear("status", 1, 2020);
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -124,7 +123,7 @@ class InvoiceServiceImplTest {
         final List<Invoice> result = invoiceServiceImplUnderTest.getByMonthAndYear(1, 2020);
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -148,7 +147,7 @@ class InvoiceServiceImplTest {
         final List<Invoice> result = invoiceServiceImplUnderTest.getByMonthAndYear(1, 2020);
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -186,7 +185,7 @@ class InvoiceServiceImplTest {
         final List<Invoice> result = invoiceServiceImplUnderTest.getByStatusAndQuarterAndYear("status", 0, 2020);
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -210,7 +209,7 @@ class InvoiceServiceImplTest {
         final List<Invoice> result = invoiceServiceImplUnderTest.getByStatusAndQuarterAndYear("status", 0, 2020);
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -248,7 +247,7 @@ class InvoiceServiceImplTest {
         final List<Invoice> result = invoiceServiceImplUnderTest.getByQuarterAndYear(0, 2020);
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -272,7 +271,7 @@ class InvoiceServiceImplTest {
         final List<Invoice> result = invoiceServiceImplUnderTest.getByQuarterAndYear(0, 2020);
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -310,7 +309,7 @@ class InvoiceServiceImplTest {
         final List<Invoice> result = invoiceServiceImplUnderTest.getByStatus("status");
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -334,6 +333,6 @@ class InvoiceServiceImplTest {
         final List<Invoice> result = invoiceServiceImplUnderTest.getByStatus("status");
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertEquals(expectedResult, result);
     }
 }
